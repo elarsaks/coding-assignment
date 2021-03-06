@@ -1,13 +1,19 @@
 <template>
     <div>
-        <Node :nodes="node.nodes" :name="node.name" />
+        <Node
+            v-for="node in nodes"
+            :key="node.name"
+            :name="node.name"
+            :nodes="node.nodes" />
     </div>
 </template>
 
 <style scoped lang="scss">
 div {
-  background: #eee;
+  width: 49vw;
+  background: #fff;
   font-size: 10px;
+  right: 0;
 }
 </style>
 
@@ -21,7 +27,7 @@ div {
         },
         data() {
             return {
-                node: [],
+                nodes: [],
             };
         },
         computed: {
@@ -34,7 +40,7 @@ div {
             const suits = [...new Set(data.map(item => item.suit))];
 
             // Map data to each suit
-            const nodes = suits.map(suit => {
+            this.nodes = suits.map(suit => {
                 const nodes = data.filter(card => suit == card.suit);
                 const suitName = nodes[0].name.split(' ').slice(-1)[0];
 
@@ -50,18 +56,13 @@ div {
 
                 // Return a single suit data obj
                 return {
-                    name: suitName,
+                    name: suit + ' ' + suitName,
                     nodes: [
-                        { name: 'named', nodes: named },
-                        { name: 'numbers', nodes: numbers },
+                        { name: 'Named', nodes: named },
+                        { name: 'Numbers', nodes: numbers },
                     ],
                 };
             });
-
-            // Set mapped suits data array as a nodes of suits obj
-            this.node = { name: 'Suits', nodes };
-
-            // setTimeout(console.log(this.node), 10000);
         },
         methods: {},
     };
