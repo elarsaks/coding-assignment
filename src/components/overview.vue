@@ -30,21 +30,36 @@ div {
             ...mapState(['initialized']),
         },
         created() {
-            // TODO: Clean all this up
             const data = Object.values(this.cards);
-
+            // Get distinct suits
             const suits = [...new Set(data.map(item => item.suit))];
 
+            // Map data to each suit
             const children = suits.map(suit => {
                 const children = data.filter(card => suit == card.suit);
-                const name = children[0].name.split(' ').slice(-1)[0];
+                const suitName = children[0].name.split(' ').slice(-1)[0];
 
+                // Get Named cards
+                const named = children.filter(
+                    child => !Number.isInteger(parseInt(child.rank))
+                );
+
+                // Get numbered Cards
+                const numbers = children.filter(child =>
+                    Number.isInteger(parseInt(child.rank))
+                );
+
+                // Return a single suit data obj
                 return {
-                    name,
-                    children,
+                    name: suitName,
+                    children: [
+                        { name: 'named', children: named },
+                        { name: 'numbers', children: numbers },
+                    ],
                 };
             });
 
+            // Set mapped suits data array as a children of suits obj
             this.children = [{ name: 'suits', children }];
         },
         methods: {},
