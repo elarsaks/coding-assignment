@@ -63,8 +63,8 @@ div {
                 return {
                     name: suit + ' ' + suitName,
                     nodes: [
-                        { name: 'Named', nodes: named },
-                        { name: 'Numbers', nodes: numbers },
+                        { name: suit + ' ' + 'Named', nodes: named },
+                        { name: suit + ' ' + 'Numbers', nodes: numbers },
                     ],
                 };
             });

@@ -1,11 +1,19 @@
 <template>
-    <div class="node" :class="isRed">
+    <div class="node" :class="cardColor(name)">
         <ul>
             <li>
                 <div v-if="nodes.length > 0">
-                    <div class="node-header" @click="openClose">{{ name }}</div>
+                    <div
+                        class="node-header"
+                        :class="{
+                            [`active-${cardColor(name)}`]: cardSelected == true,
+                        }"
+                        @click="openClose">
+                        {{ name }}
+                    </div>
+
                     <transition name="slide">
-                        <div v-if="open" :class="nodeContent">
+                        <div v-if="open || cardSelected">
                             <Node
                                 v-for="node in nodes"
                                 :id="node.id"
@@ -15,13 +23,70 @@
                         </div>
                     </transition>
                 </div>
+
                 <div v-else>
-                    <div class="item-header" @click="selectCard">{{ name }}</div>
+                    <div
+                        class="item-header"
+                        :class="{
+                            [`active-${cardColor(name)}`]: cardSelected == true,
+                        }"
+                        @click="selectCard">
+                        {{ name }}
+                    </div>
                 </div>
             </li>
         </ul>
     </div>
 </template>
+
+<script>
+    import VT from 'vue-types';
+    export default {
+        name: 'Node',
+        components: {},
+        props: {
+            nodes: VT.array,
+            name: VT.string,
+            id: VT.string,
+        },
+        data() {
+            return {
+                open: false,
+            };
+        },
+        computed: {
+            cardSelected() {
+                return this.findByIdRecursive({ id: this.id, nodes: this.nodes });
+            },
+        },
+        methods: {
+            cardColor(name) {
+                const nameEnd = name.split(' ').slice(-1);
+                const diamonds = name[0] == '♦' || nameEnd == 'Diamonds';
+                const hearts = name[0] == '♥' || nameEnd == 'Hearts';
+
+                return diamonds || hearts ? 'red' : 'black';
+            },
+            findByIdRecursive(node) {
+                if (node.id) {
+                    return node.id == this.$route.params.cardId;
+                } else if (node.nodes) {
+                    const found = node.nodes.find(n => this.findByIdRecursive(n));
+
+                    return found ? true : false;
+                }
+            },
+            openClose() {
+                this.open = !this.open;
+            },
+            selectCard() {
+                if (this.$route.params.cardId != this.id) {
+                    this.$router.push({ params: { cardId: this.id } });
+                }
+            },
+        },
+    };
+</script>
 
 <style scoped lang="scss">
 .node {
@@ -41,6 +106,14 @@
 .red :hover {
   color: #ff0000;
   transition: all 0.3s;
+}
+
+.active-black {
+  color: #000;
+}
+
+.active-red {
+  color: #ff0000;
 }
 
 .node ul {
@@ -101,50 +174,3 @@
   max-height: 0;
 }
 </style>
-
-<script>
-    import VT from 'vue-types';
-    export default {
-        name: 'Node',
-        components: {},
-        props: {
-            nodes: VT.array,
-            name: VT.string,
-            id: VT.string,
-        },
-        data() {
-            return {
-                open: false,
-            };
-        },
-        computed: {
-            isRed() {
-                return this.name[0] == '♦' || this.name[0] == '♥' ? 'red' : 'black';
-            },
-            nodeContent() {
-                let openClass = 'close';
-
-                switch (this.open) {
-                case false:
-                    openClass = 'close';
-                    break;
-                case true:
-                    openClass = 'open';
-                    break;
-                }
-
-                return { [openClass]: true };
-            },
-        },
-        methods: {
-            openClose() {
-                this.open = !this.open;
-            },
-            selectCard() {
-                if (this.$route.params.cardId != this.id) {
-                    this.$router.push({ params: { cardId: this.id } });
-                }
-            },
-        },
-    };
-</script>
