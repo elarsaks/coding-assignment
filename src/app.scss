@@ -4,3 +4,25 @@ $default-padding: 20px;
 $black: #000;
 $gray: #959595;
 $red: #ff0000;
+
+.black {
+    color: $black;
+}
+
+.gray {
+    color: $gray;
+}
+
+.red {
+    color: $red;
+}
+
+@mixin card-color($blackCard: true, $redCard: true) {
+    @if $blackCard {
+        color: black;
+    } @else if $redCard {
+        color: red;
+    } @else {
+        color: gray;
+    }
+}

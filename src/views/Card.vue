@@ -16,9 +16,6 @@
 
 <style scoped lang="scss">
 @import '../app.scss';
-div {
-  background: #eee;
-}
 
 .card {
   position: relative;
@@ -53,57 +50,46 @@ div {
       transition: transform 1.5s;
     }
   }
-}
 
-.card_suit {
-  width: 100%;
-  display: block;
-  font-size: 3em;
-}
+  .card_suit {
+    width: 100%;
+    display: block;
+    font-size: 3em;
+  }
 
-.card_suit_top {
-  display: flex;
-  justify-content: start;
-  padding-left: 4%;
-}
+  .card_suit_top {
+    display: flex;
+    justify-content: start;
+    padding-left: 4%;
+  }
 
-.card_suit_bottom {
-  display: flex;
-  justify-content: end;
-  position: absolute;
-  width: 96%;
-  bottom: 0em;
-  transform: rotate(180deg);
-}
+  .card_suit_bottom {
+    display: flex;
+    justify-content: end;
+    position: absolute;
+    width: 96%;
+    bottom: 0em;
+    transform: rotate(180deg);
+  }
 
-.card_rank {
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  width: 100%;
-  top: 40%;
-  font-size: 3em;
-}
-
-.black {
-  color: $black;
-}
-
-.gray {
-  color: $gray;
-}
-
-.red {
-  color: $red;
+  .card_rank {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    top: 40%;
+    font-size: 3em;
+  }
 }
 </style>
 
 <script>
+    import VT from 'vue-types';
     export default {
         name: 'Card',
+        // TODO: check if VT is has type interfaces
         props: {
-            // TODO: Prop type checking
-            card: {},
+            card: VT.object.isRequired,
         },
     };
 </script>

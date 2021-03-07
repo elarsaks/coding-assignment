@@ -133,6 +133,7 @@
     export default {
         name: 'Node',
         components: {},
+        // TODO: should the props be validated or this enough?
         props: {
             nodes: VT.array,
             name: VT.string,

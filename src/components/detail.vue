@@ -26,52 +26,40 @@
   border: 1px solid $border-color;
   padding: $default-padding;
   margin-right: 2em;
-}
 
-.black {
-  color: #000;
-}
+  .buttons {
+    display: flex;
+    justify-content: space-evenly;
 
-.gray {
-  color: rgb(149, 149, 149);
-}
+    button {
+      cursor: pointer;
+      outline: none;
+      border: none;
+      background: none;
+      padding: 0.5em;
 
-.red {
-  color: #ff0000;
-}
+      .arrow {
+        border: solid;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 0.25em;
+      }
 
-.arrow {
-  border: solid;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 0.25em;
-}
+      .right {
+        transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+      }
 
-.right {
-  transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-}
-
-.left {
-  transform: rotate(135deg);
-  -webkit-transform: rotate(135deg);
-}
-
-.buttons {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.buttons button {
-  cursor: pointer;
-  outline: none;
-  border: none;
-  background: none;
+      .left {
+        transform: rotate(135deg);
+        -webkit-transform: rotate(135deg);
+      }
+    }
+  }
 }
 </style>
 
 <script>
-    import VT from 'vue-types';
     import { mapState } from 'vuex';
     import Card from '../views/Card';
 
@@ -81,7 +69,7 @@
             Card,
         },
         props: {
-            cardId: VT.string.isRequired,
+            cardId: { validator: v => v === null || typeof v === 'string' },
         },
         computed: {
             ...mapState('deckOfCards', ['cards']),
