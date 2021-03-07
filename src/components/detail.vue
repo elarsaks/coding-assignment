@@ -1,5 +1,5 @@
 <template>
-    <div class="card-detail" :class="color">
+    <div class="card-detail">
         <transition name="slide">
             <Card :card="card" />
         </transition>
@@ -30,7 +30,6 @@
 
 .red {
   color: #ff0000;
-  border: #ff0000;
 }
 
 .black {
@@ -83,27 +82,32 @@
         computed: {
             ...mapState('deckOfCards', ['cards']),
             card() {
-                return this.cards[this.cardId];
+                return this.cards[this.cardId] ?
+                    this.cards[this.cardId] :
+                    { id: 0, name: 'Not selected', rank: '0', suit: '?' };
             },
             color() {
                 return this.card.suit === '♦' || this.card.suit === '♥' ? 'red' : 'black';
             },
+            route() {
+                return isNaN(this.$route.params.cardId) ?
+                    0 :
+                    parseInt(this.$route.params.cardId);
+            },
         },
         methods: {
             prev() {
-                const oldRoute = parseInt(this.$route.params.cardId);
-                const newRoute = oldRoute - 1;
+                const newRoute = this.route - 1;
 
-                if (newRoute != 0) {
+                if (newRoute >= 0) {
                     this.$router.push({ params: { cardId: newRoute.toString() } });
                 }
             },
 
             next() {
-                const oldRoute = parseInt(this.$route.params.cardId);
-                const newRoute = oldRoute + 1;
+                const newRoute = this.route + 1;
 
-                if (newRoute != 53) {
+                if (newRoute <= 52) {
                     this.$router.push({ params: { cardId: newRoute.toString() } });
                 }
             },

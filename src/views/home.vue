@@ -5,10 +5,7 @@
                 <overview />
             </div>
             <div class="detail-wrapper">
-                <detail v-if="cardId" :card-id="cardId" />
-                <div v-else>
-                    No card selected
-                </div>
+                <detail :card-id="cardId" />
             </div>
         </div>
 
@@ -16,24 +13,23 @@
     </div>
 </template>
 
-
 <style scoped lang="scss">
-    @import '../app.scss';
+@import '../app.scss';
 
-    .overview-beside-detail {
-        align-items: flex-start;
-        display: flex;
+.overview-beside-detail {
+  align-items: flex-start;
+  display: flex;
 
-        > * + *  { margin-left: $default-padding; }
-    }
+  > * + * {
+    margin-left: $default-padding;
+  }
+}
 </style>
-
 
 <script>
     import Detail from '@/components/detail.vue';
     import Instructions from '@/components/instructions.vue';
     import Overview from '@/components/overview.vue';
-
 
     export default {
         name: 'Home',
