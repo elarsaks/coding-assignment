@@ -110,7 +110,7 @@
         props: {
             nodes: VT.array,
             name: VT.string,
-            id: VT.number,
+            id: VT.string,
         },
         data() {
             return {
@@ -139,6 +139,7 @@
         methods: {
             openClose() {
                 this.open = !this.open;
+                // console.log(this.$router.params);
             },
             selectCard() {
                 this.$router.push({ params: { cardId: this.id } });

@@ -11,6 +11,7 @@
 @import '../app.scss';
 
 .card-detail {
+  text-align: center;
   background: #fff;
   border-radius: 1rem;
   border: 1px solid $border-color;

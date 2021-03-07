@@ -37,7 +37,7 @@ div {
   overflow: hidden;
   border: 2px solid white;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  transition: 1.5s;
+  transition: transform 1.5s;
   cursor: pointer;
   margin: 10px;
 
@@ -56,7 +56,7 @@ div {
   &:hover {
     &::before {
       transform: translateX(300px) skewX(-15deg);
-      transition: 1.5s;
+      transition: transform 1.5s;
     }
 
     animation: float 1.5s;
