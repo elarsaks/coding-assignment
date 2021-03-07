@@ -39,55 +39,6 @@
     </div>
 </template>
 
-<script>
-    import VT from 'vue-types';
-    export default {
-        name: 'Node',
-        components: {},
-        props: {
-            nodes: VT.array,
-            name: VT.string,
-            id: VT.string,
-        },
-        data() {
-            return {
-                open: false,
-            };
-        },
-        computed: {
-            cardSelected() {
-                return this.findByIdRecursive({ id: this.id, nodes: this.nodes });
-            },
-        },
-        methods: {
-            cardColor(name) {
-                const nameEnd = name.split(' ').slice(-1);
-                const diamonds = name[0] == '♦' || nameEnd == 'Diamonds';
-                const hearts = name[0] == '♥' || nameEnd == 'Hearts';
-
-                return diamonds || hearts ? 'red' : 'black';
-            },
-            findByIdRecursive(node) {
-                if (node.id) {
-                    return node.id == this.$route.params.cardId;
-                } else if (node.nodes) {
-                    const found = node.nodes.find(n => this.findByIdRecursive(n));
-
-                    return found ? true : false;
-                }
-            },
-            openClose() {
-                this.open = !this.open;
-            },
-            selectCard() {
-                if (this.$route.params.cardId != this.id) {
-                    this.$router.push({ params: { cardId: this.id } });
-                }
-            },
-        },
-    };
-</script>
-
 <style scoped lang="scss">
 .node {
   min-width: 500px;
@@ -174,3 +125,52 @@
   max-height: 0;
 }
 </style>
+
+<script>
+    import VT from 'vue-types';
+    export default {
+        name: 'Node',
+        components: {},
+        props: {
+            nodes: VT.array,
+            name: VT.string,
+            id: VT.string,
+        },
+        data() {
+            return {
+                open: false,
+            };
+        },
+        computed: {
+            cardSelected() {
+                return this.findByIdRecursive({ id: this.id, nodes: this.nodes });
+            },
+        },
+        methods: {
+            cardColor(name) {
+                const nameEnd = name.split(' ').slice(-1);
+                const diamonds = name[0] == '♦' || nameEnd == 'Diamonds';
+                const hearts = name[0] == '♥' || nameEnd == 'Hearts';
+
+                return diamonds || hearts ? 'red' : 'black';
+            },
+            findByIdRecursive(node) {
+                if (node.id) {
+                    return node.id == this.$route.params.cardId;
+                } else if (node.nodes) {
+                    const found = node.nodes.find(n => this.findByIdRecursive(n));
+
+                    return found ? true : false;
+                }
+            },
+            openClose() {
+                this.open = !this.open;
+            },
+            selectCard() {
+                if (this.$route.params.cardId != this.id) {
+                    this.$router.push({ params: { cardId: this.id } });
+                }
+            },
+        },
+    };
+</script>

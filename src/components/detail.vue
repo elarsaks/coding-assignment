@@ -2,8 +2,19 @@
     <div
         class="card-detail"
         :class="card.suit === '♦' || card.suit === '♥' ? 'red' : 'black'">
-        <h1>{{ card.name }}</h1>
-        <Card :card="card" />
+        <transition name="slide">
+            <Card :card="card" />
+        </transition>
+
+        <div class="buttons">
+            <button @click="prev">
+                <i class="arrow left" />
+            </button>
+            <h2>{{ card.name }}</h2>
+            <button @click="next">
+                <i class="arrow right" />
+            </button>
+        </div>
     </div>
 </template>
 
@@ -26,6 +37,35 @@
 .black {
   color: #000;
 }
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 0.25em;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.buttons button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background: none;
+}
 </style>
 
 <script>
@@ -46,6 +86,25 @@
 
             card() {
                 return this.cards[this.cardId];
+            },
+        },
+        methods: {
+            prev() {
+                const oldRoute = parseInt(this.$route.params.cardId);
+                const newRoute = oldRoute - 1;
+
+                if (newRoute != 0) {
+                    this.$router.push({ params: { cardId: newRoute.toString() } });
+                }
+            },
+
+            next() {
+                const oldRoute = parseInt(this.$route.params.cardId);
+                const newRoute = oldRoute + 1;
+
+                if (newRoute != 53) {
+                    this.$router.push({ params: { cardId: newRoute.toString() } });
+                }
             },
         },
     };

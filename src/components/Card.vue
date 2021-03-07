@@ -13,18 +13,6 @@ div {
   background: #eee;
 }
 
-@keyframes float {
-  0% {
-    transform: skewY(0deg);
-  }
-  50% {
-    transform: skewY(1deg);
-  }
-  100% {
-    transform: skewY(0deg);
-  }
-}
-
 .card {
   position: relative;
   font-size: 1em;
@@ -38,7 +26,6 @@ div {
   border: 2px solid white;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   transition: transform 1.5s;
-  cursor: pointer;
   margin: 10px;
 
   &::before {
@@ -58,8 +45,6 @@ div {
       transform: translateX(300px) skewX(-15deg);
       transition: transform 1.5s;
     }
-
-    animation: float 1.5s;
   }
 }
 
@@ -99,6 +84,40 @@ div {
 
 .black {
   color: #000;
+}
+
+.slide-enter-active {
+  -moz-transition-duration: 0.3s;
+  -webkit-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -moz-transition-timing-function: ease-in;
+  -webkit-transition-timing-function: ease-in;
+  -o-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
+}
+
+.slide-leave-active {
+  -moz-transition-duration: 0.3s;
+  -webkit-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -moz-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  -o-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+.slide-enter-to,
+.slide-leave {
+  max-height: 100px;
+  overflow: hidden;
+}
+
+.slide-enter,
+.slide-leave-to {
+  overflow: hidden;
+  max-height: 0;
 }
 </style>
 
