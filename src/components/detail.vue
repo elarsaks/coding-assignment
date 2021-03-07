@@ -1,17 +1,15 @@
 <template>
-    <div
-        class="card-detail"
-        :class="card.suit === '♦' || card.suit === '♥' ? 'red' : 'black'">
+    <div class="card-detail" :class="color">
         <transition name="slide">
             <Card :card="card" />
         </transition>
 
-        <div class="buttons">
-            <button @click="prev">
+        <div class="buttons" :class="color">
+            <button :class="color" @click="prev">
                 <i class="arrow left" />
             </button>
             <h2>{{ card.name }}</h2>
-            <button @click="next">
+            <button :class="color" @click="next">
                 <i class="arrow right" />
             </button>
         </div>
@@ -32,6 +30,7 @@
 
 .red {
   color: #ff0000;
+  border: #ff0000;
 }
 
 .black {
@@ -39,7 +38,7 @@
 }
 
 .arrow {
-  border: solid black;
+  border: solid;
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 0.25em;
@@ -83,9 +82,11 @@
         },
         computed: {
             ...mapState('deckOfCards', ['cards']),
-
             card() {
                 return this.cards[this.cardId];
+            },
+            color() {
+                return this.card.suit === '♦' || this.card.suit === '♥' ? 'red' : 'black';
             },
         },
         methods: {
