@@ -8,15 +8,6 @@
     </div>
 </template>
 
-<style scoped lang="scss">
-div {
-  width: 30vw;
-  background: #fff;
-  font-size: 10px;
-  right: 0;
-}
-</style>
-
 <script>
     import { mapState } from 'vuex';
     import Node from './Node';

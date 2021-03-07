@@ -15,6 +15,7 @@
 </template>
 
 <style scoped lang="scss">
+@import '../app.scss';
 div {
   background: #eee;
 }
@@ -85,15 +86,15 @@ div {
 }
 
 .black {
-  color: #000;
+  color: $black;
 }
 
 .gray {
-  color: rgb(149, 149, 149);
+  color: $gray;
 }
 
 .red {
-  color: #ff0000;
+  color: $red;
 }
 </style>
 

@@ -17,12 +17,13 @@
 @import '../app.scss';
 
 .overview-beside-detail {
+  width: 50vw;
   align-items: flex-start;
   display: flex;
+}
 
-  > * + * {
-    margin-left: $default-padding;
-  }
+.overview-wrapper {
+  width: 30vw;
 }
 </style>
 

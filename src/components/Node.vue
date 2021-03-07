@@ -40,89 +40,91 @@
 </template>
 
 <style scoped lang="scss">
+@import '../app.scss';
 .node {
   min-width: 500px;
   list-style-type: none;
   letter-spacing: 0.2rem;
   font-size: 1.2rem;
-  color: rgb(149, 149, 149);
+  color: $gray;
   transition: all 0.3s;
+
+  ul {
+    list-style-type: none;
+  }
+
+  .node-header {
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      transform: scale(1.01);
+    }
+  }
+
+  .item-header {
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      transform: scale(1.03);
+    }
+  }
+
+  .slide-enter-to,
+  .slide-leave {
+    max-height: 100px;
+    overflow: hidden;
+  }
+
+  .slide-enter,
+  .slide-leave-to {
+    overflow: hidden;
+    max-height: 0;
+  }
+
+  .slide-enter-active {
+    -moz-transition-duration: 0.3s;
+    -webkit-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -moz-transition-timing-function: ease-in;
+    -webkit-transition-timing-function: ease-in;
+    -o-transition-timing-function: ease-in;
+    transition-timing-function: ease-in;
+  }
+
+  .slide-leave-active {
+    -moz-transition-duration: 0.3s;
+    -webkit-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -moz-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    -o-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  }
 }
 
+// TODO: these colors in SASS
 .black :hover {
-  color: #000;
+  color: $black;
   transition: all 0.3s;
 }
 
 .red :hover {
-  color: #ff0000;
+  color: $red;
   transition: all 0.3s;
 }
 
 .active-black {
-  color: #000;
+  color: $black;
 }
 
 .active-red {
-  color: #ff0000;
-}
-
-.node ul {
-  list-style-type: none;
-}
-
-.node-header {
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s;
-
-  &:hover {
-    transform: scale(1.01);
-  }
-}
-
-.item-header {
-  font-weight: 400;
-  cursor: pointer;
-  transition: all 0.3s;
-
-  &:hover {
-    transform: scale(1.03);
-  }
-}
-
-.slide-enter-active {
-  -moz-transition-duration: 0.3s;
-  -webkit-transition-duration: 0.3s;
-  -o-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -moz-transition-timing-function: ease-in;
-  -webkit-transition-timing-function: ease-in;
-  -o-transition-timing-function: ease-in;
-  transition-timing-function: ease-in;
-}
-
-.slide-leave-active {
-  -moz-transition-duration: 0.3s;
-  -webkit-transition-duration: 0.3s;
-  -o-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -moz-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-  -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-  -o-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-}
-
-.slide-enter-to,
-.slide-leave {
-  max-height: 100px;
-  overflow: hidden;
-}
-
-.slide-enter,
-.slide-leave-to {
-  overflow: hidden;
-  max-height: 0;
+  color: $red;
 }
 </style>
 
