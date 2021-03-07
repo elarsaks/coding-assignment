@@ -28,12 +28,16 @@
   margin-right: 2em;
 }
 
-.red {
-  color: #ff0000;
-}
-
 .black {
   color: #000;
+}
+
+.gray {
+  color: rgb(149, 149, 149);
+}
+
+.red {
+  color: #ff0000;
 }
 
 .arrow {
@@ -69,7 +73,7 @@
 <script>
     import VT from 'vue-types';
     import { mapState } from 'vuex';
-    import Card from './Card';
+    import Card from '../views/Card';
 
     export default {
         name: 'Detail',
@@ -87,7 +91,11 @@
                     { id: 0, name: 'Not selected', rank: '0', suit: '?' };
             },
             color() {
-                return this.card.suit === '♦' || this.card.suit === '♥' ? 'red' : 'black';
+                return this.card.suit === '?' ?
+                    'gray' :
+                    this.card.suit === '♦' || this.card.suit === '♥' ?
+                        'red' :
+                        'black';
             },
             route() {
                 return isNaN(this.$route.params.cardId) ?

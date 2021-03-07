@@ -165,6 +165,17 @@
             },
             openClose() {
                 this.open = !this.open;
+
+                // Check if this nodes child card is open
+                const nodeCardOpen = this.findByIdRecursive({
+                    id: this.id,
+                    nodes: this.nodes,
+                });
+
+                // Set routing to 0 when Cards parent node is closed
+                if (nodeCardOpen) {
+                    this.$router.push({ params: { cardId: '0' } });
+                }
             },
             selectCard() {
                 if (this.$route.params.cardId != this.id) {
