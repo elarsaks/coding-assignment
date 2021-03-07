@@ -139,10 +139,11 @@
         methods: {
             openClose() {
                 this.open = !this.open;
-                // console.log(this.$router.params);
             },
             selectCard() {
-                this.$router.push({ params: { cardId: this.id } });
+                if (this.$route.params.cardId != this.id) {
+                    this.$router.push({ params: { cardId: this.id } });
+                }
             },
         },
     };
