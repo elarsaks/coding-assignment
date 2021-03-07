@@ -34,12 +34,12 @@
 }
 
 .black :hover {
-  color: black;
+  color: #000;
   transition: all 0.3s;
 }
 
 .red :hover {
-  color: red;
+  color: #ff0000;
   transition: all 0.3s;
 }
 

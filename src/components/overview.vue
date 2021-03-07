@@ -39,7 +39,7 @@ div {
             const data = Object.values(this.cards);
 
             // Insert card id (key in cards obj) to each card
-            data.forEach((card, i) => (card.id = i));
+            data.forEach((card, i) => (card.id = i + 1));
 
             // Get distinct suits
             const suits = [...new Set(data.map(item => item.suit))];

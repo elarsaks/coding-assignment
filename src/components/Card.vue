@@ -31,7 +31,7 @@ div {
   background: rgb(229, 238, 238);
   display: inline-block;
   width: 13em;
-  height: 18em;
+  height: 19em;
   min-width: 75px;
   border-radius: 1em;
   overflow: hidden;
