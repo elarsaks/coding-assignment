@@ -10,7 +10,7 @@
 
 <style scoped lang="scss">
 div {
-  width: 49vw;
+  width: 30vw;
   background: #fff;
   font-size: 10px;
   right: 0;
@@ -35,7 +35,12 @@ div {
             ...mapState(['initialized']),
         },
         created() {
+            // Get cards as an Array
             const data = Object.values(this.cards);
+
+            // Insert card id (key in cards obj) to each card
+            data.forEach((card, i) => (card.id = i));
+
             // Get distinct suits
             const suits = [...new Set(data.map(item => item.suit))];
 

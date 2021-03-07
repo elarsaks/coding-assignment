@@ -29,13 +29,5 @@
             nodes: VT.array,
             name: VT.string,
         },
-        created() {
-            // console.log(this.name, this.nodes);
-        },
-        methods: {
-            openClose() {
-                console.log('CLicked');
-            },
-        },
     };
 </script>

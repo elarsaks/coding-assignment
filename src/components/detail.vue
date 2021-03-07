@@ -13,6 +13,7 @@
   border-radius: 1rem;
   border: 1px solid $border-color;
   padding: $default-padding;
+  margin-right: 2em;
 }
 </style>
 

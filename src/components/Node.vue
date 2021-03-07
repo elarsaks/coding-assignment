@@ -1,13 +1,14 @@
 <template>
-    <div class="node" :class="{ active: isRed, 'text-danger': hasError }">
+    <div class="node" :class="isRed">
         <ul>
             <li>
                 <div v-if="nodes.length > 0">
-                    <span class="node-header" @click="openClose">{{ name }}</span>
+                    <div class="node-header" @click="openClose">{{ name }}</div>
                     <transition name="slide">
                         <div v-if="open" :class="nodeContent">
                             <Node
                                 v-for="node in nodes"
+                                :id="node.id"
                                 :key="node.name"
                                 :nodes="node.nodes"
                                 :name="node.name" />
@@ -15,7 +16,7 @@
                     </transition>
                 </div>
                 <div v-else>
-                    <span class="item-header" @click="openClose">{{ name }}</span>
+                    <div class="item-header" @click="selectCard">{{ name }}</div>
                 </div>
             </li>
         </ul>
@@ -29,11 +30,17 @@
   letter-spacing: 0.2rem;
   font-size: 1.2rem;
   color: rgb(149, 149, 149);
+  transition: all 0.3s;
+}
 
-  & :hover {
-    color: black;
-    //color: red;
-  }
+.black :hover {
+  color: black;
+  transition: all 0.3s;
+}
+
+.red :hover {
+  color: red;
+  transition: all 0.3s;
 }
 
 .node ul {
@@ -43,11 +50,21 @@
 .node-header {
   font-weight: bold;
   cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    transform: scale(1.01);
+  }
 }
 
 .item-header {
   font-weight: 400;
   cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    transform: scale(1.03);
+  }
 }
 
 .slide-enter-active {
@@ -93,6 +110,7 @@
         props: {
             nodes: VT.array,
             name: VT.string,
+            id: VT.number,
         },
         data() {
             return {
@@ -100,6 +118,9 @@
             };
         },
         computed: {
+            isRed() {
+                return this.name[0] == '♦' || this.name[0] == '♥' ? 'red' : 'black';
+            },
             nodeContent() {
                 let openClass = 'close';
 
@@ -118,7 +139,9 @@
         methods: {
             openClose() {
                 this.open = !this.open;
-                console.log('clicked', this.open);
+            },
+            selectCard() {
+                this.$router.push({ params: { cardId: this.id } });
             },
         },
     };
