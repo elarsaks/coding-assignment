@@ -81,7 +81,6 @@
     export default {
         name: 'Card',
         mixins: [ColorMixin],
-        // TODO: check if VT is has type interfaces
         props: {
             card: VT.object.isRequired,
         },

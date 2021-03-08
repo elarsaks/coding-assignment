@@ -5,13 +5,13 @@
         </transition>
 
         <div class="buttons" :class="cardColor(card.name)">
-            <button :class="cardColor(card.name)" @click="prev">
+            <button :class="cardColor(card.name)" @click="next(-1)">
                 <i class="arrow left" />
             </button>
 
             <h2>{{ card.name }}</h2>
 
-            <button :class="cardColor(card.name)" @click="next">
+            <button :class="cardColor(card.name)" @click="next(1)">
                 <i class="arrow right" />
             </button>
         </div>
@@ -68,46 +68,33 @@
 
     export default {
         name: 'Detail',
-        components: {
-            Card,
-        },
+        components: { Card },
         mixins: [ColorMixin],
         props: {
             cardId: { validator: v => v === null || typeof v === 'string' },
         },
         computed: {
             ...mapState('deckOfCards', ['cards']),
+
+            // Return empty card if on the first page load
             card() {
                 return this.cards[this.cardId] ?
                     this.cards[this.cardId] :
                     { id: 0, name: 'Not selected', rank: '0', suit: '?' };
             },
-            color() {
-                return this.card.suit === '?' ?
-                    'gray' :
-                    this.card.suit === '♦' || this.card.suit === '♥' ?
-                        'red' :
-                        'black';
-            },
+
+            // Return route for the next card function
             route() {
-                return isNaN(this.$route.params.cardId) ?
-                    0 :
-                    parseInt(this.$route.params.cardId);
+                return !isNaN(this.$route.params.cardId) ?
+                    parseInt(this.$route.params.cardId) :
+                    0;
             },
         },
         methods: {
-            prev() {
-                const newRoute = this.route - 1;
+            next(upDown) {
+                const newRoute = this.route + upDown;
 
-                if (newRoute >= 0) {
-                    this.$router.push({ params: { cardId: newRoute.toString() } });
-                }
-            },
-
-            next() {
-                const newRoute = this.route + 1;
-
-                if (newRoute <= 52) {
+                if (newRoute >= 0 && newRoute <= 52) {
                     this.$router.push({ params: { cardId: newRoute.toString() } });
                 }
             },

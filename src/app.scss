@@ -7,6 +7,11 @@ $red: #ff0000;
 
 .black {
     color: $black;
+
+    & :hover {
+        color: $black;
+        transition: all 0.3s;
+    }
 }
 
 .gray {
@@ -15,14 +20,9 @@ $red: #ff0000;
 
 .red {
     color: $red;
-}
 
-@mixin card-color($blackCard: true, $redCard: true) {
-    @if $blackCard {
-        color: black;
-    } @else if $redCard {
-        color: red;
-    } @else {
-        color: gray;
+    & :hover {
+        color: $red;
+        transition: all 0.3s;
     }
 }

@@ -6,7 +6,7 @@
                     <div
                         class="node-header"
                         :class="{
-                            [`active-${cardColor(name)}`]: cardSelected == true,
+                            [`${cardColor(name)}`]: cardSelected == true,
                         }"
                         @click="openClose">
                         {{ name }}
@@ -28,7 +28,7 @@
                     <div
                         class="item-header"
                         :class="{
-                            [`active-${cardColor(name)}`]: cardSelected == true,
+                            [`${cardColor(name)}`]: cardSelected == true,
                         }"
                         @click="selectCard">
                         {{ name }}
@@ -94,25 +94,6 @@
     transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
   }
 }
-
-// TODO: these colors in SASS
-.black :hover {
-  color: $black;
-  transition: all 0.3s;
-}
-
-.red :hover {
-  color: $red;
-  transition: all 0.3s;
-}
-
-.active-black {
-  color: $black;
-}
-
-.active-red {
-  color: $red;
-}
 </style>
 
 <script>
@@ -122,7 +103,6 @@
         name: 'Node',
         components: {},
         mixins: [ColorMixin],
-        // TODO: should the props be validated or this enough?
         props: {
             nodes: VT.array,
             name: VT.string,
@@ -139,6 +119,7 @@
             },
         },
         methods: {
+            // Return true if currently open card is in this node or in this nodes children node
             findByIdRecursive(node) {
                 if (node.id) {
                     return node.id == this.$route.params.cardId;
@@ -157,7 +138,7 @@
                     nodes: this.nodes,
                 });
 
-                // Set routing to 0 when Cards parent node is closed
+                // Set routing to 0 when Cards parent node gets closed
                 if (nodeCardOpen) {
                     this.$router.push({ params: { cardId: '0' } });
                 }
