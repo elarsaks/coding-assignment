@@ -4,12 +4,14 @@
             <Card :card="card" />
         </transition>
 
-        <div class="buttons" :class="color">
-            <button :class="color" @click="prev">
+        <div class="buttons" :class="cardColor(card.name)">
+            <button :class="cardColor(card.name)" @click="prev">
                 <i class="arrow left" />
             </button>
+
             <h2>{{ card.name }}</h2>
-            <button :class="color" @click="next">
+
+            <button :class="cardColor(card.name)" @click="next">
                 <i class="arrow right" />
             </button>
         </div>
@@ -60,14 +62,16 @@
 </style>
 
 <script>
-    import { mapState } from 'vuex';
     import Card from '../views/Card';
+    import ColorMixin from './helpers/ColorMixin.js';
+    import { mapState } from 'vuex';
 
     export default {
         name: 'Detail',
         components: {
             Card,
         },
+        mixins: [ColorMixin],
         props: {
             cardId: { validator: v => v === null || typeof v === 'string' },
         },

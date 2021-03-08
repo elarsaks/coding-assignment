@@ -53,8 +53,7 @@
     list-style-type: none;
   }
 
-  .node-header {
-    font-weight: bold;
+  @mixin headerMixin {
     cursor: pointer;
     transition: all 0.3s;
 
@@ -63,14 +62,14 @@
     }
   }
 
+  .node-header {
+    font-weight: bold;
+    @include headerMixin;
+  }
+
   .item-header {
     font-weight: 400;
-    cursor: pointer;
-    transition: all 0.3s;
-
-    &:hover {
-      transform: scale(1.03);
-    }
+    @include headerMixin;
   }
 
   .slide-enter-to,
@@ -86,24 +85,12 @@
   }
 
   .slide-enter-active {
-    -moz-transition-duration: 0.3s;
-    -webkit-transition-duration: 0.3s;
-    -o-transition-duration: 0.3s;
     transition-duration: 0.3s;
-    -moz-transition-timing-function: ease-in;
-    -webkit-transition-timing-function: ease-in;
-    -o-transition-timing-function: ease-in;
     transition-timing-function: ease-in;
   }
 
   .slide-leave-active {
-    -moz-transition-duration: 0.3s;
-    -webkit-transition-duration: 0.3s;
-    -o-transition-duration: 0.3s;
     transition-duration: 0.3s;
-    -moz-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-    -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-    -o-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
     transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
   }
 }
@@ -129,10 +116,12 @@
 </style>
 
 <script>
+    import ColorMixin from './helpers/ColorMixin.js';
     import VT from 'vue-types';
     export default {
         name: 'Node',
         components: {},
+        mixins: [ColorMixin],
         // TODO: should the props be validated or this enough?
         props: {
             nodes: VT.array,
@@ -150,13 +139,6 @@
             },
         },
         methods: {
-            cardColor(name) {
-                const nameEnd = name.split(' ').slice(-1);
-                const diamonds = name[0] == '♦' || nameEnd == 'Diamonds';
-                const hearts = name[0] == '♥' || nameEnd == 'Hearts';
-
-                return diamonds || hearts ? 'red' : 'black';
-            },
             findByIdRecursive(node) {
                 if (node.id) {
                     return node.id == this.$route.params.cardId;

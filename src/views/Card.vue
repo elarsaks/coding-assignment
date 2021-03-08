@@ -1,13 +1,5 @@
 <template>
-    <div
-        class="card"
-        :class="
-            card.suit === '?'
-                ? 'gray'
-                : card.suit === '♦' || card.suit === '♥'
-                    ? 'red'
-                    : 'black'
-        ">
+    <div class="card" :class="cardColor(card.name)">
         <span class="card_suit card_suit_top">{{ card.suit }}</span>
         <span class="card_rank">{{ card.rank }} </span>
         <span class="card_suit card_suit_bottom">{{ card.suit }}</span>
@@ -84,9 +76,11 @@
 </style>
 
 <script>
+    import ColorMixin from '../components/helpers/ColorMixin.js';
     import VT from 'vue-types';
     export default {
         name: 'Card',
+        mixins: [ColorMixin],
         // TODO: check if VT is has type interfaces
         props: {
             card: VT.object.isRequired,
